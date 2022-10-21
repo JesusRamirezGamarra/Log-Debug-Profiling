@@ -70,7 +70,7 @@ app.engine(
 );
 app.use('/',viewsRouter);
 app.use('/api/sessions',sessionsRouter);
-app.use('/api/randoms', randomRouter);
+//app.use('/api/randoms', randomRouter);
 //MANEJO DE RUTAS INEXISTENTES
 app.use( (req,res) => {
   try{

@@ -185,7 +185,62 @@ Ejecutamos :
 npm run dev --MODE=DEV --PORT=8080 --MODO=FORK
 ```
 
-a .  considerando el uso de `artillery` y sus parametros , La herramienta tiene el comando «quick» que nos permite lanzar un test rápido contra la URL que definamos, pudiendo establecer los siguientes modificadores::  [ver mas](https://www.adictosaltrabajo.com/2018/02/22/tests-de-rendimiento-con-artillery/)
+
+
+
+a . Para realizar el analisis del profiling realizamos los siguientes pasos : 
+
+
+```bash
+node --prof src/index.js
+```
+
+el archivo generado lo renombramos a  : `isolate.log ` para poder ser procesado y asi mostrarse en un formato mas entendible : 
+
+```bash
+node --prof-process docs/profiling--Simple/isolate.log > resultadoProfiling-Simple.txt
+```
+
+```log
+Statistical profiling result from docs/profiling--Simple/isolate.log, (2714 ticks, 0 unaccounted, 0 excluded).
+
+ [Shared libraries]:
+   ticks  total  nonlib   name
+   1846   68.0%          /usr/bin/node
+     67    2.5%          [vdso]
+     46    1.7%          /usr/lib/x86_64-linux-gnu/libc-2.31.so
+     13    0.5%          /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.28
+
+ [JavaScript]:
+   ticks  total  nonlib   name
+      6    0.2%    0.8%  LazyCompile: *resolve node:path:1091:10
+      3    0.1%    0.4%  LazyCompile: *normalizeString node:path:66:25
+      2    0.1%    0.3%  Function: ^Module._resolveFilename node:internal/modules/cjs/loader:864:35
+      1    0.0%    0.1%  RegExp: \u0000|\u0009|\u000A|\u000D|\u0020|#|\/|:|<|>|\?|@|\[|\\|\]|\^|\|
+      1    0.0%    0.1%  LazyCompile: *syncExports node:internal/bootstrap/loaders:304:14
+      1    0.0%    0.1%  LazyCompile: *realpathSync node:fs:2474:22
+      1    0.0%    0.1%  LazyCompile: *Module._nodeModulePaths node:internal/modules/cjs/loader:639:37
+      1    0.0%    0.1%  Function: ^validateString node:internal/validators:159:24
+      1    0.0%    0.1%  Function: ^validateBoolean node:internal/validators:215:25
+      1    0.0%    0.1%  Function: ^resolve node:internal/modules/esm/loader:786:16
+      1    0.0%    0.1%  Function: ^newAsyncId node:internal/async_hooks:416:20
+      1    0.0%    0.1%  Function: ^makeRequireFunction node:internal/modules/cjs/helpers:59:29
+      1    0.0%    0.1%  Function: ^isPosixPathSeparator node:path:56:30
+      1    0.0%    0.1%  Function: ^getPathFromURLPosix node:internal/url:1464:29
+      1    0.0%    0.1%  Function: ^basename node:path:1306:11
+      1    0.0%    0.1%  Function: ^Module.require node:internal/modules/cjs/loader:1013:36
+      1    0.0%    0.1%  Function: ^Module._extensions..js node:internal/modules/cjs/loader:1128:37
+      1    0.0%    0.1%  Function: ^Module._compile node:internal/modules/cjs/loader:1073:37
+      1    0.0%    0.1%  Function: *wasm-function[15]
+...
+```
+
+```bash
+node --inspect src/index.js
+```
+
+
+ considerando el uso de `artillery` y sus parametros , La herramienta tiene el comando «quick» que nos permite lanzar un test rápido contra la URL que definamos, pudiendo establecer los siguientes modificadores::  [ver mas](https://www.adictosaltrabajo.com/2018/02/22/tests-de-rendimiento-con-artillery/)
 
 ```config
 -d, –duration <número de segundos>
